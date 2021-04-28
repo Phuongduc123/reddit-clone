@@ -11,7 +11,7 @@ const HomeNavigation = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name={HOME_NAVIGATION.NEWS_FEED}
+        name={HOME_NAVIGATION.NEW_FEED}
         component={NewsFeedScreen}
       />
       <Stack.Screen name={HOME_NAVIGATION.POST} component={PostScreen} />

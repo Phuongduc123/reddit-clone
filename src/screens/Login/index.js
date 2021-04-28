@@ -6,10 +6,16 @@ import {
   ImageBackground,
   Image,
   TextInput,
+  TouchableOpacity
 } from 'react-native';
 import styles from './styles';
+import {ROUTES} from '../../navigation/routes';
 const backgroundImage = require('../../assetss/Background.png');
 const logoImage = require('../../assetss/Logo.png');
+const accountImage = require('../../assetss/mdi_account.png');
+const lockImage = require('../../assetss/mdi_lock.png');
+const faceLogo = require('../../assetss/facebook1.png');
+const googleLogo = require('../../assetss/google1.png')
 
 const LoginScreen = props => {
   const login = () => {
@@ -27,27 +33,41 @@ const LoginScreen = props => {
             Hãy đến với chúng tôi để {'\n'}cùng chia sẻ
           </Text>
         </View>
-        <View>
-          <TextInput />
-          <Image />
+        <View  style={styles.usernameInput}>
+          <TextInput placeholderTextColor="rgba(40, 37, 37, 0.7)" placeholder="Địa chỉ email"/>
+          <Image source={accountImage} style={styles.accountImage}/>
         </View>
-        <View>
-          <TextInput />
-          <Image />
+        <View style={styles.passwordInput} >
+          <TextInput placeholderTextColor="rgba(40, 37, 37, 0.7)" placeholder="Mật khẩu"/>
+          <Image source={lockImage} style={styles.lockImage}/>
         </View>
-        <View>
-          <Text>Không phải bạn?</Text>
-          <Text>Quên mật khẩu</Text>
+        <View style={styles.notYouNnotRemPass}>
+        <TouchableOpacity onPress={()=>props.navigation.navigate(ROUTES.REGISTER)}> 
+          <View>
+           <Text style={{color:"white"}}>Bạn muốn đăng ký?</Text>
+          </View>
+        </TouchableOpacity>
+          <View>
+            <Text>Quên mật khẩu</Text>
+          </View>
+          
         </View>
-        <View>
-          <Button title="Đăng nhập" onPress={() => login()} />
+        <View style={styles.loginButton}>
+          <Button  color="#32393E" title="Đăng nhập" onPress={() => login()} />
         </View>
-        <View>
-          <Text>Đăng nhập cùng</Text>
+        <View style={styles.signInWidth}>
+          <View>
+          <Text style={{color:"white"}}>Đăng nhập cùng</Text>
+          </View>
+            
         </View>
-        <View>
-          <Image />
-          <Image />
+        <View style={styles.googleNfacebook}>
+          <View>
+            <Image style={styles.faceImage} source={faceLogo}/>
+          </View>
+          <View>
+            <Image style={styles.googleImage} source={googleLogo}/>
+          </View> 
         </View>
       </ImageBackground>
     </View>
