@@ -2,11 +2,12 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import Home from '../screens/NewsFeed';
-import {ROUTES} from './routes';
+import {ROUTES, HOME_NAVIGATION} from './routes';
 import TabNavigation from './tab-navigation';
 import LoadingScreen from '../screens/Loading';
 import LoginScreen from '../screens/Login';
 import RegisterScreen from '../screens/Register';
+import ChannelScreen from '../screens/Channel';
 
 const StackRoot = createStackNavigator();
 
@@ -17,6 +18,7 @@ const MainNavigation = () => {
         screenOptions={{
           headerShown: false,
         }}>
+        <StackRoot.Screen name={HOME_NAVIGATION.CHANNEL} component={ChannelScreen} />
         <StackRoot.Screen
           name={ROUTES.LOADING_SCREEN}
           component={LoadingScreen}
