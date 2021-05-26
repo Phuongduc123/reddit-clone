@@ -3,7 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import Home from '../screens/NewsFeed';
 import {ROUTES, HOME_NAVIGATION} from './routes';
-import TabNavigation from './tab-navigation';
+import TabNavigation from './tab-navigation.jsx';
 import LoadingScreen from '../screens/Loading';
 import LoginScreen from '../screens/Login';
 import RegisterScreen from '../screens/Register';

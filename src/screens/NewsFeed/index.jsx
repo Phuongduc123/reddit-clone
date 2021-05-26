@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import HomeHeaderComponent from '../../modules/home-header';
-import Post from '../../modules/post';
+import Post from '../../modules/Post/index';
 import {HOME_NAVIGATION} from '../../navigation/routes';
 import SearchIconSvg from '../../assetss/svg/search.svg';
 import COLORS from '../../consts/styles/color';

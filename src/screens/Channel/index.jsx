@@ -11,7 +11,7 @@ import {
 import styles from './styles';
 import {ROUTES} from '../../navigation/routes';
 import React from 'react';
-import Post from '../../modules/post';
+import Post from '../../modules/Post/index';
 const backgroundImage = require('../../assetss/Background.png');
 const avatarImage = require('../../assetss/Avatar.png');
 const iconCollapse = require('../../assetss/mdi_chevron_down.png');

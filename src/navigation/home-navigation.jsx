@@ -10,7 +10,12 @@ const Stack = createStackNavigator();
 
 const HomeNavigation = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      // screenOptions={{
+      //   headerShown: false,
+      // }}
+    >
+      <Stack.Screen options={{headerShown:false}} name={HOME_NAVIGATION.CHANNEL} component={ChannelScreen} />
       <Stack.Screen
         name={HOME_NAVIGATION.NEW_FEED}
         component={NewsFeedScreen}
@@ -21,7 +26,7 @@ const HomeNavigation = () => {
         component={PostScreen}
         // options={{header: () => <View></View>}}
       />
-      <Stack.Screen name={HOME_NAVIGATION.CHANNEL} component={ChannelScreen} />
+      
     </Stack.Navigator>
   );
 };
