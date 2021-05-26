@@ -1,5 +1,6 @@
 import React from 'react';
-import {View, Image, Text} from 'react-native';
+import {View, Image, Text, TouchableOpacity} from 'react-native';
+import {HOME_NAVIGATION, TAB_NAVIGATION} from '../../navigation/routes';
 import styles from './styles';
 const loadingImage = require('../../assetss/loading.gif');
 const DefaultPostAvatar = require('../../assetss/Background.png');
@@ -8,9 +9,15 @@ const DefaultIconLike = require('../../assetss/Like.png');
 const DefaultIconComment = require('../../assetss/CommentIcon.png');
 const DetailPost = require('../../assetss/DetailPost.png');
 
-const Post = () => {
+const Post = props => {
+  const _gotoPost = () => {
+    props.navigation.navigate(TAB_NAVIGATION.HOME, {
+      screen: HOME_NAVIGATION.POST,
+    });
+  };
+
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={_gotoPost}>
       <View style={styles.AvataFrame}>
         <Image source={DefaultPostAvatar} style={styles.postAvatar} />
       </View>
@@ -38,11 +45,10 @@ const Post = () => {
               <Text>120</Text>
             </View>
           </View>
-
           <Image source={DetailPost} style={styles.seenIcon} />
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

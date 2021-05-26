@@ -18,4 +18,18 @@ export const HOME_NAVIGATION = {
   CHANNEL: 'CHANNEL',
 };
 
-export const PROFILE_NAVIGATION = {};
+export const PROFILE_NAVIGATION = {
+  PROFILE: 'PROFILE',
+};
+
+export const SEARCH_NAVIGATION = {
+  SEARCH: 'SEARCH',
+};
+
+export const CREATE_NAVIGATION = {
+  CREATE: 'CREATE',
+};
+
+export const MESSAGE_NAVIGATION = {
+  MESSAGE: 'MESSAGE',
+};

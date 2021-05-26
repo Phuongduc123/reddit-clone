@@ -6,7 +6,7 @@ import {
   ImageBackground,
   Image,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 import styles from './styles';
 import {ROUTES} from '../../navigation/routes';
@@ -15,11 +15,11 @@ const logoImage = require('../../assetss/Logo.png');
 const accountImage = require('../../assetss/mdi_account.png');
 const lockImage = require('../../assetss/mdi_lock.png');
 const faceLogo = require('../../assetss/facebook1.png');
-const googleLogo = require('../../assetss/google1.png')
+const googleLogo = require('../../assetss/google1.png');
 
 const LoginScreen = props => {
   const login = () => {
-    props.navigation.push('home');
+    props.navigation.push(ROUTES.TAB_NAVIGATION);
   };
 
   return (
@@ -33,41 +33,46 @@ const LoginScreen = props => {
             Hãy đến với chúng tôi để {'\n'}cùng chia sẻ
           </Text>
         </View>
-        <View  style={styles.usernameInput}>
-          <TextInput placeholderTextColor="rgba(40, 37, 37, 0.7)" placeholder="Địa chỉ email"/>
-          <Image source={accountImage} style={styles.accountImage}/>
+        <View style={styles.usernameInput}>
+          <TextInput
+            placeholderTextColor="rgba(40, 37, 37, 0.7)"
+            placeholder="Địa chỉ email"
+          />
+          <Image source={accountImage} style={styles.accountImage} />
         </View>
-        <View style={styles.passwordInput} >
-          <TextInput placeholderTextColor="rgba(40, 37, 37, 0.7)" placeholder="Mật khẩu"/>
-          <Image source={lockImage} style={styles.lockImage}/>
+        <View style={styles.passwordInput}>
+          <TextInput
+            placeholderTextColor="rgba(40, 37, 37, 0.7)"
+            placeholder="Mật khẩu"
+          />
+          <Image source={lockImage} style={styles.lockImage} />
         </View>
         <View style={styles.notYouNnotRemPass}>
-        <TouchableOpacity onPress={()=>props.navigation.navigate(ROUTES.REGISTER)}> 
-          <View>
-           <Text style={{color:"white"}}>Bạn muốn đăng ký?</Text>
-          </View>
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate(ROUTES.REGISTER)}>
+            <View>
+              <Text style={{color: 'white'}}>Bạn muốn đăng ký?</Text>
+            </View>
+          </TouchableOpacity>
           <View>
             <Text>Quên mật khẩu</Text>
           </View>
-          
         </View>
         <View style={styles.loginButton}>
-          <Button  color="#32393E" title="Đăng nhập" onPress={() => login()} />
+          <Button color="#32393E" title="Đăng nhập" onPress={() => login()} />
         </View>
         <View style={styles.signInWidth}>
           <View>
-          <Text style={{color:"white"}}>Đăng nhập cùng</Text>
+            <Text style={{color: 'white'}}>Đăng nhập cùng</Text>
           </View>
-            
         </View>
         <View style={styles.googleNfacebook}>
           <View>
-            <Image style={styles.faceImage} source={faceLogo}/>
+            <Image style={styles.faceImage} source={faceLogo} />
           </View>
           <View>
-            <Image style={styles.googleImage} source={googleLogo}/>
-          </View> 
+            <Image style={styles.googleImage} source={googleLogo} />
+          </View>
         </View>
       </ImageBackground>
     </View>
