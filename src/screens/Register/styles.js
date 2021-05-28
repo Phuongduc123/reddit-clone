@@ -98,6 +98,11 @@ const styles = StyleSheet.create({
     paddingRight: 5,
     fontFamily: 'Roboto-Bold',
   },
+  ageText:{
+    height:48,
+    textAlignVertical:"center",
+    paddingLeft:16,
+  },  
   passwordInput: {
     backgroundColor: '#CCD2D7',
     opacity: 0.6,
@@ -147,7 +152,8 @@ const styles = StyleSheet.create({
     borderRadius: 40,
   },
   hadAccountText:{
-    marginTop: heightScreen * 0.2,
+    marginTop: heightScreen * 0.1,
+    // bottom: heightScreen*0.02,
     display:"flex",
     alignItems:"center",
   },

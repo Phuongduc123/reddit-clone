@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     justifyContent:"center",
     alignItems:"center",
     color:"white",
-    marginTop:heightScreen*0.19
+    marginTop:heightScreen*0.10
   },
   googleNfacebook:{
     display:"flex",

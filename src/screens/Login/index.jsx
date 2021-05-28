@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -7,9 +7,14 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  Alert
 } from 'react-native';
 import styles from './styles';
 import {ROUTES} from '../../navigation/routes';
+import rf from '../../request/RequestFactory';
+import {setStorage} from '../../common/AsynStorage'
+
+
 const backgroundImage = require('../../assetss/Background.png');
 const logoImage = require('../../assetss/Logo.png');
 const accountImage = require('../../assetss/mdi_account.png');
@@ -18,8 +23,49 @@ const faceLogo = require('../../assetss/facebook1.png');
 const googleLogo = require('../../assetss/google1.png');
 
 const LoginScreen = props => {
-  const login = () => {
-    props.navigation.push(ROUTES.TAB_NAVIGATION);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+
+
+
+  const login = async () => {
+    // props.navigation.push(ROUTES.TAB_NAVIGATION);
+    if( email !=="" && password!==""){
+      let response = await rf.getRequest('UserRequest').Login({
+        username:email,
+        password:password,
+      })
+      console.log("xnxx", response)
+      if(!!response.username){
+        await setStorage('token', response.token)
+        props.navigation.push(ROUTES.TAB_NAVIGATION);
+      }else{
+        return Alert.alert(
+          "Có lỗi xảy ra khi đăng nhập",
+          "Xin vui lòng thử lại",
+          [
+            {
+              text: "Cancel",
+              style: "cancel"
+            },
+            { text: "OK" }
+          ]
+        );
+      }
+    }else{
+      return Alert.alert(
+        "Bạn cần nhập đầy đủ thông tìn",
+        "Xin vui lòng thử lại",
+        [
+          {
+            text: "Cancel",
+            style: "cancel"
+          },
+          { text: "OK" }
+        ]
+      );
+    }
   };
 
   return (
@@ -35,6 +81,10 @@ const LoginScreen = props => {
         </View>
         <View style={styles.usernameInput}>
           <TextInput
+            value={email}
+            onChangeText={(value)=> {
+              setEmail(value)
+            }}
             placeholderTextColor="rgba(40, 37, 37, 0.7)"
             placeholder="Địa chỉ email"
           />
@@ -42,6 +92,9 @@ const LoginScreen = props => {
         </View>
         <View style={styles.passwordInput}>
           <TextInput
+            value={password}
+            secureTextEntry={true}
+            onChangeText={(value)=>setPassword(value)}
             placeholderTextColor="rgba(40, 37, 37, 0.7)"
             placeholder="Mật khẩu"
           />

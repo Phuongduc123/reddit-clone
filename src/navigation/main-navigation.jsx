@@ -15,7 +15,7 @@ const MainNavigation = () => {
   return (
     <NavigationContainer>
       <StackRoot.Navigator
-        initialRouteName={ROUTES.TAB_NAVIGATION}
+        initialRouteName={ROUTES.REGISTER}
         screenOptions={{
           headerShown: false,
         }}>
