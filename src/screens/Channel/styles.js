@@ -44,9 +44,13 @@ const styles = StyleSheet.create({
   },
   nameText:{
     flex:7,
+    width:100,
+  },
+  textName:{
     fontFamily: 'Roboto-Bold',
     fontSize:16,
-  },    
+    marginLeft:20,
+  },   
   iconNoti:{
       resizeMode:'contain',
       height:widthScreen * 0.04
@@ -61,6 +65,9 @@ const styles = StyleSheet.create({
       paddingLeft:widthScreen*0.04,
       paddingRight:widthScreen*0.04,
       marginTop:10,
+      flexDirection:"row",
+      justifyContent:"space-between",
+      alignItems:"center"
   },
   introText:{
       textAlign:"justify"
@@ -103,10 +110,18 @@ const styles = StyleSheet.create({
   },
   PostsContent:{
       backgroundColor:"#E5E5E5",
-      height:"100%"
+      flex:1,
+      marginBottom:150
+      // justifyContent: 'center',
+      // alignItems: 'center',
+      // overflow:"scroll"
+      // flexGrow:0,
   },
   PostsList:{
-    overflow:"scroll"
+    // flexGrow:1,
+    // height: 50,
+    // flex:1,
+    // overflow:"scroll"
   }
   
 });

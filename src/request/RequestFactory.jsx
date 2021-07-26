@@ -1,8 +1,14 @@
 
 import UserRequest from './UserRequest';
+import PostRequest from './PostRequest';
+import ChannelRequest from './ChannelRequest';
+import AnomynousRequest from './AnomynousRequest'
 
 const requestMap = {
-  UserRequest
+  UserRequest,
+  PostRequest,
+  ChannelRequest,
+  AnomynousRequest
 };
 
 const instances = {};

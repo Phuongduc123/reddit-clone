@@ -29,7 +29,7 @@ const calendarImage = require('../../assetss/mdi_calendar_blank.png');
 const RegisterScreen = props => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [sex, setSex] = useState('boy');
+  const [sex, setSex] = useState('M');
   const [password, setPassword] = useState('');
   const [passwordAgain, setPasswordAgain] = useState('')
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -38,7 +38,9 @@ const RegisterScreen = props => {
   const setAndroidDate = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setDate(currentDate);
-    setShowDatePicker(false)
+    setShowDatePicker(false);
+
+
   };
 
   const Signup = async () => {
@@ -55,9 +57,11 @@ const RegisterScreen = props => {
           let response = await rf.getRequest('UserRequest').Signup({
             username:email,
             password:password,
-            name: name,
-            gender: sex,
-            age: date.getTime(),
+            profile:{
+              name: name,
+              gender: sex,
+              age: date.getTime(),
+            }
           })
           if(response.message === "success"){
             return Alert.alert(
@@ -158,9 +162,14 @@ const RegisterScreen = props => {
           <Picker
             selectedValue={sex}
             style={{height: 50, width: '97%'}}
-            onValueChange={(itemValue, itemIndex) => setSex(itemValue)}>
-            <Picker.Item label="Nam" value="boy" key="1" />
-            <Picker.Item label="Nữ" value="girl" key="2" />
+            onValueChange={(itemValue, itemIndex) => setSex(itemValue)}
+            itemStyle={{
+              
+            }}
+            
+            >
+            <Picker.Item label="Nam" value="M" key="1" />
+            <Picker.Item label="Nữ" value="F" key="2" />
           </Picker>
         </View>
         <View style={styles.ageInput}>

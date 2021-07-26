@@ -15,7 +15,6 @@ const HomeNavigation = () => {
       //   headerShown: false,
       // }}
     >
-      <Stack.Screen options={{headerShown:false}} name={HOME_NAVIGATION.CHANNEL} component={ChannelScreen} />
       <Stack.Screen
         name={HOME_NAVIGATION.NEW_FEED}
         component={NewsFeedScreen}

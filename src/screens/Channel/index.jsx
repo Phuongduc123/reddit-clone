@@ -7,11 +7,19 @@ import {
   TextInput,
   TouchableOpacity,
   FlatList,
+  Alert,
 } from 'react-native';
 import styles from './styles';
 import {ROUTES} from '../../navigation/routes';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Post from '../../modules/Post/index';
+import rf from '../../request/RequestFactory';
+import {useSelector, useDispatch} from 'react-redux';
+import _ from 'lodash';
+import DeleteSvgIcon from '../../assetss/svg/delete.svg';
+import {color} from 'react-native-reanimated';
+import Toast from 'react-native-toast-message';
+
 const backgroundImage = require('../../assetss/Background.png');
 const avatarImage = require('../../assetss/Avatar.png');
 const iconCollapse = require('../../assetss/mdi_chevron_down.png');
@@ -19,28 +27,123 @@ const iconPost = require('../../assetss/iconPost.png');
 const iconTypePostLayout = require('../../assetss/typePostLayout.png');
 const iconBell = require('../../assetss/bell.png');
 
-const ChannelScreen = () => {
+const ChannelScreen = props => {
+  const dispatch = useDispatch();
+  const [data, setData] = useState();
+  const subscribedChannel = useSelector(state => state.initial.myChannel);
+
+  useEffect(async () => {
+    getDetailChannel();
+  }, []);
+
+  const getDetailChannel = async () => {
+    let response = await rf
+      .getRequest('ChannelRequest')
+      .getDetailChannel(props.route.params.subName);
+    setData(response);
+  };
+
+  const checkSubscribed = () => {
+    return !!_.find(subscribedChannel, function (o) {
+      return o.id === data?.id;
+    });
+  };
+
+  const attendChannel = async () => {
+    const response = await rf
+      .getRequest('ChannelRequest')
+      .attendChannel(data?.sub_name);
+    if (response.message) {
+      getDetailChannel();
+    }
+  };
+
+  const leaveChannel = async () => {
+    const response = await rf
+      .getRequest('ChannelRequest')
+      .leaveChannel(data?.sub_name);
+    if (response.message) {
+      getDetailChannel();
+    }
+  };
+
+  const pressSub = () => {
+    if (data?.join_status === 'joined') {
+      leaveChannel();
+    } else {
+      attendChannel();
+    }
+  };
+
+  const _deleteChannel = async () => {
+    const response = await rf
+      .getRequest('ChannelRequest')
+      .deleteChannel(data?.sub_name);
+    if (response.message) {
+      props.navigation.goBack();
+      Toast.show({
+        type:"success",
+        position:"bottom",
+        text1: "Xóa thành công"
+      })
+    }
+  };
+
+  const _alertChannel = () => {
+    return Alert.alert(
+      'Bạn có chắc chắn muốn xóa kênh này?',
+      '',
+      [
+        {
+          text: "Hủy",
+          style: 'cancel',
+        },
+        {
+          text: 'Xác nhận',
+          onPress: () => {
+            _deleteChannel();
+          },
+        }
+      ],
+    );
+  };
+
+  useEffect(() => {
+    console.log('xnxx37', data);
+  }, [data]);
+
   return (
     <View style={styles.container}>
       <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
         <View style={styles.avatar}>
-          <Image style={styles.avataImage} source={avatarImage} />
+          <Image
+            style={styles.avataImage}
+            source={
+              !!data?.media != ''
+                ? {uri: `data:image/jpeg;base64,${data?.media}`}
+                : avatarImage
+            }
+          />
         </View>
         <View style={styles.introBox}>
           <View style={styles.rowNameAndNotification}>
-            <Text style={styles.nameText}>Nguyễn Đức Phương</Text>
-            <Image source={iconBell} style={styles.iconNoti} />
-            <View style={styles.SubFrame}>
-              <Text style={styles.SubText}>Đăng ký</Text>
+            <View style={styles.nameText}>
+              <Text style={styles.textName}>{data?.sub_name}</Text>
             </View>
+            <Image source={iconBell} style={styles.iconNoti} />
+            <TouchableOpacity
+              onPress={() => pressSub()}
+              style={styles.SubFrame}>
+              <Text style={styles.SubText}>
+                {data?.join_status === 'joined' ? `Bỏ Đăng ký` : `đăng ký ngay`}
+              </Text>
+            </TouchableOpacity>
           </View>
           <View style={styles.introContent}>
-            <Text style={styles.introText}>
-              {' '}
-              Ngoài phí giao dịch, các thợ đào còn được trả công cho việc tạo ra
-              các khối (block) chứa nhật ký giao dịch. Cứ mỗi 10 phút, một khối
-              mới được tạo ra kèm theo một lượng Bitcoin được cấp phát....
-            </Text>
+            <Text style={styles.introText}> {data?.description}</Text>
+            <TouchableOpacity onPress={_alertChannel}>
+              <DeleteSvgIcon fill={'rgba(0,0,0,0.7)'} width={20} height={20} />
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.utilityBar}>
@@ -52,22 +155,16 @@ const ChannelScreen = () => {
 
           <Image source={iconTypePostLayout} style={styles.iconLayoutType} />
         </View>
-        <View style={styles.PostsContent}>
+        <View style={{...styles.PostsContent}}>
           <FlatList
-            style={{flex: 1, overflow: 'scroll'}}
+            style={{flexGrow: 0}}
             contentContainerStyle={styles.PostsList}
-            data={[
-              {key: 'Devin'},
-              {key: 'Alo'},
-              {key: 'Okela'},
-              {key: 'O'},
-              {key: 'Okel'},
-              {key: 'Okel1'},
-              {key: 'Okel2'},
-              {key: 'Okel3'},
-            ]}
-            renderItem={({item}) => <Post />}></FlatList>
+            data={data?.posts}
+            renderItem={({item}) => (
+              <Post navigation={props.navigation} item={item} />
+            )}></FlatList>
         </View>
+        <View></View>
       </ImageBackground>
     </View>
   );

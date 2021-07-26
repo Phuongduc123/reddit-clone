@@ -6,6 +6,7 @@
  * @flow strict-local
  */
 
+ import Toast from 'react-native-toast-message';
 import React from 'react';
 import {StyleSheet, useColorScheme, View, Text} from 'react-native';
 import {Provider} from 'react-redux';
@@ -26,6 +27,7 @@ const App = () => {
   return (
     <Provider store={store} style={styles.container}>
       <MainNavigation />
+      <Toast ref={(ref) => Toast.setRef(ref)} />
     </Provider>
   );
 };

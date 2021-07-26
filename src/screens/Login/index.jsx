@@ -27,22 +27,44 @@ const LoginScreen = props => {
   const [password, setPassword] = useState("");
 
 
+  useEffect(()=> {
+    const setDefault = props.navigation.addListener('focus', ()=> {
+      setEmail("");
+      setPassword("")
+    })
+    return setDefault
+  },[props.navigation])
+
+
 
 
   const login = async () => {
     // props.navigation.push(ROUTES.TAB_NAVIGATION);
-    if( email !=="" && password!==""){
-      let response = await rf.getRequest('UserRequest').Login({
-        username:email,
-        password:password,
-      })
-      console.log("xnxx", response)
-      if(!!response.username){
-        await setStorage('token', response.token)
-        props.navigation.push(ROUTES.TAB_NAVIGATION);
+    try{
+      if( email !=="" && password!==""){
+        let response = await rf.getRequest('UserRequest').Login({
+          username:email,
+          password:password,
+        })
+        if(!!response.username){
+          await setStorage('token', response.token)
+          props.navigation.push(ROUTES.TAB_NAVIGATION);
+        }else{
+          return Alert.alert(
+            "Có lỗi xảy ra khi đăng nhập",
+            "Xin vui lòng thử lại",
+            [
+              {
+                text: "Cancel",
+                style: "cancel"
+              },
+              { text: "OK" }
+            ]
+          );
+        }
       }else{
         return Alert.alert(
-          "Có lỗi xảy ra khi đăng nhập",
+          "Bạn cần nhập đầy đủ thông tìn",
           "Xin vui lòng thử lại",
           [
             {
@@ -53,19 +75,11 @@ const LoginScreen = props => {
           ]
         );
       }
-    }else{
-      return Alert.alert(
-        "Bạn cần nhập đầy đủ thông tìn",
-        "Xin vui lòng thử lại",
-        [
-          {
-            text: "Cancel",
-            style: "cancel"
-          },
-          { text: "OK" }
-        ]
-      );
+    }catch(err){
+      // console.log("xnxx79", err)
+      throw err
     }
+    
   };
 
   return (

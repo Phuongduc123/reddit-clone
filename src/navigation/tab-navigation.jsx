@@ -4,6 +4,7 @@ import {TAB_NAVIGATION} from './routes';
 import HomeNavigation from './home-navigation';
 import SearchNavigation from './search-navigation';
 import CreateNavigation from './create-navigation';
+import ChannelListNavigation from './channel-list-navigation';
 import MessageNavigation from './message-navigation';
 import HomeSvgIcon from '../assetss/svg/home.svg';
 import SearchSvgIcon from '../assetss/svg/search.svg';
@@ -62,7 +63,7 @@ const TabNavigation = () => {
           ),
         }}
         name={TAB_NAVIGATION.SEARCH}
-        component={SearchNavigation}
+        component={ChannelListNavigation}
       />
       <Tab.Screen
         options={{

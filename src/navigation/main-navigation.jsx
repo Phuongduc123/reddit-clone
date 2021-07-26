@@ -8,6 +8,8 @@ import LoadingScreen from '../screens/Loading';
 import LoginScreen from '../screens/Login';
 import RegisterScreen from '../screens/Register';
 import ChannelScreen from '../screens/Channel';
+import CreateNavigation from './create-navigation';
+import ProfileNavigation from './profile-navigation';
 
 const StackRoot = createStackNavigator();
 
@@ -22,10 +24,14 @@ const MainNavigation = () => {
         <StackRoot.Screen
           name={ROUTES.LOADING_SCREEN}
           component={LoadingScreen}
+        />  
+        <StackRoot.Screen
+          name={"test"}
+          component={TabNavigation}
         />
         <StackRoot.Screen name={ROUTES.LOGIN} component={LoginScreen} />
         <StackRoot.Screen name={ROUTES.REGISTER} component={RegisterScreen} />
-        <StackRoot.Screen
+        <StackRoot.Screen 
           name={ROUTES.TAB_NAVIGATION}
           component={TabNavigation}
         />
